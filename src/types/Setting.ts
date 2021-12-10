@@ -56,7 +56,7 @@ export interface SettingDBContent {
   | CarConnectorSettingsType;
   ocpi?: OcpiSetting;
   oicp?: OicpSetting;
-  // pricing?: PricingSetting;  // TODO - reorg pricing similar to billing
+  pricing?: PricingSetting;
   simple?: SimplePricingSetting;
   convergentCharging?: ConvergentChargingPricingSetting;
   billing?: BillingSetting;

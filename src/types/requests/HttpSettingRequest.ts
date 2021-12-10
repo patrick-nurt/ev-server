@@ -1,7 +1,8 @@
-import { AssetConnectionSetting, CarConnectorConnectionSetting } from '../Setting';
+import { AnalyticsSettingsType, AssetConnectionSetting, AssetSettingsType, BillingSettingsType, CarConnectorConnectionSetting, CarConnectorSettings, CarConnectorSettingsType, ConcurRefundSetting, ConvergentChargingPricingSetting, CryptoSettingsType, OcpiSetting, OicpSetting, PricingSettingsType, RefundSettingsType, RoamingSettingsType, SimplePricingSetting, SmartChargingSettingsType, TechnicalSettings, UserSettingsType } from '../Setting';
 
 import HttpByIDRequest from './HttpByIDRequest';
 import HttpDatabaseRequest from './HttpDatabaseRequest';
+import { TenantComponents } from '../Tenant';
 
 export interface HttpSettingRequest extends HttpByIDRequest {
   ContentFilter: boolean;
@@ -14,76 +15,27 @@ export interface HttpSettingsRequest extends HttpDatabaseRequest {
 
 export interface HttpSettingSetRequest {
   id?: string,
-  identifier: string,
+  identifier: TenantComponents | TechnicalSettings,
   sensitiveData: []
 }
 
 export interface HttpSettingOCPISetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
-    ocpi: {
-      businessDetails: {
-        logo: {
-          category?: string,
-          height?: number,
-          thumbnail?: string,
-          type?: string,
-          url?: string,
-          width?: number
-        },
-        name: string,
-        website: string
-      },
-      cpo: {
-        countryCode: string,
-        partyID: string
-      },
-      currency: string,
-      emsp: {
-        countryCode: string,
-        partyID: string
-      },
-      tariffID?: string
-    }
+    type: RoamingSettingsType,
+    ocpi: OcpiSetting
   }
 }
 
 export interface HttpSettingOICPSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
-    ocpi: {
-      businessDetails: {
-        logo: {
-          category?: string,
-          height?: number,
-          thumbnail?: string,
-          type?: string,
-          url?: string,
-          width?: number
-        },
-        name: string,
-        website: string
-      },
-      cpo: {
-        countryCode: string,
-        partyID: string,
-        key: string,
-        cert: string
-      },
-      currency: string,
-      emsp: {
-        countryCode: string,
-        partyID: string,
-        key: string,
-        cert: string
-      }
-    }
+    type: RoamingSettingsType,
+    oicp: OicpSetting
   }
 }
 
 export interface HttpSettingUserSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: UserSettingsType,
     user: {
       autoActivateAccountAfterValidation: boolean
     }
@@ -92,7 +44,7 @@ export interface HttpSettingUserSetRequest extends HttpSettingSetRequest {
 
 export interface HttpSettingSmartChargingSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: SmartChargingSettingsType,
     sapSmartCharging: {
       limitBufferAC: number,
       limitBufferDC: number,
@@ -106,39 +58,22 @@ export interface HttpSettingSmartChargingSetRequest extends HttpSettingSetReques
 
 export interface HttpSettingRefundSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
-    concur: {
-      apiUrl: string,
-      appUrl: string,
-      authenticationUrl: string,
-      clientId: string,
-      clientSecret: string,
-      expenseTypeId: string,
-      policyId: string,
-      reportName: string
-    }
+    type: RefundSettingsType,
+    concur: ConcurRefundSetting
   }
 }
 
 export interface HttpSettingPricingSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
-    simple?: {
-      price: number,
-      currency: string
-    }
-    convergentCharging?: {
-      url: string,
-      user: string,
-      password: string,
-      chargeableItemName: string
-    }
+    type: PricingSettingsType,
+    simple?: SimplePricingSetting,
+    convergentCharging?: ConvergentChargingPricingSetting
   }
 }
 
 export interface HttpSettingCryptoSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: CryptoSettingsType,
     crypto: {
       key: string,
       keyProperties: {
@@ -152,7 +87,7 @@ export interface HttpSettingCryptoSetRequest extends HttpSettingSetRequest {
 
 export interface HttpSettingSacSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: AnalyticsSettingsType,
     sac: {
       mainUrl: string,
       timezone: string
@@ -162,7 +97,7 @@ export interface HttpSettingSacSetRequest extends HttpSettingSetRequest {
 
 export interface HttpSettingBillingSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: BillingSettingsType,
     billing: {
       isTransactionBillingActivated: boolean,
       immediateBillingAllowed: boolean,
@@ -174,7 +109,7 @@ export interface HttpSettingBillingSetRequest extends HttpSettingSetRequest {
 
 export interface HttpSettingAssetSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: AssetSettingsType,
     asset: {
       connections: AssetConnectionSetting[]
     }
@@ -183,7 +118,7 @@ export interface HttpSettingAssetSetRequest extends HttpSettingSetRequest {
 
 export interface HttpSettingCarConnectorSetRequest extends HttpSettingSetRequest {
   content: {
-    type: string,
+    type: CarConnectorSettingsType,
     carConnector: {
       connections: CarConnectorConnectionSetting[]
     }
