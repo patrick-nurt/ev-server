@@ -251,10 +251,7 @@
         "baseSecureUrl": {
           "type": "string"
         }
-      },
-      "required": [
-        "baseSecureUrl"
-      ]
+      }
     },
     "JsonEndpoint": {
       "type": "object",
@@ -262,10 +259,7 @@
         "baseSecureUrl": {
           "type": "string"
         }
-      },
-      "required": [
-        "baseSecureUrl"
-      ]
+      }
     },
     "OCPIEndpoint": {
       "type": "object",
@@ -304,6 +298,24 @@
         },
         "debug": {
           "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "database": {
+          "type": "string"
+        },
+        "replicaSet": {
+          "type": "string"
         }
       },
       "required": [
